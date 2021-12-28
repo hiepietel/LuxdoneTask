@@ -1,3 +1,6 @@
+using LineDrawer.Services;
+using LineDrawer.Services.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +21,20 @@ namespace LineDrawer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            var services = new ServiceCollection();
 
-            Application.Run(new MainForm());
+            ConfigureServices(services);
+            using (ServiceProvider serviceProvider = services.BuildServiceProvider())
+            {
+                var mainForm = serviceProvider.GetRequiredService<MainForm>();
+                Application.Run(mainForm);
+            }
+        }
+
+        private static void ConfigureServices(ServiceCollection services)
+        {
+            services.AddScoped<MainForm>();
+            services.AddSingleton<ILineDrawerService, LineDrawerService>();
         }
     }
 }

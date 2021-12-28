@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LineDrawer.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,35 +19,19 @@ namespace LineDrawer
         int y = -1;
         Pen pen;
 
-        public MainForm()
+        private readonly ILineDrawerService _lineDrawService;
+
+        public MainForm(ILineDrawerService lineDrawerService)
         {
+            _lineDrawService = lineDrawerService;
             InitializeComponent();
+
             g = mainPanel.CreateGraphics();
-            pen = new Pen(Color.Black, 5);
         }
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
-            if( x == -1 || y == -1)
-            {
-                x = e.X;
-                y = e.Y;
-                return;
-            }
-
-            var p = new Point()
-            {
-                X = x,
-                Y = y
-            };
-            var pNew = new Point()
-            {
-                X = e.X,
-                Y = e.Y
-            };
-            g.DrawLine(pen, p, pNew);
-            x = e.X;
-            y = e.Y;    
+            _lineDrawService.DrawLine(g, e.X, e.Y);
         }
     }
 }
