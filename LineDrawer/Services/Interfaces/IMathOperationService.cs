@@ -7,6 +7,6 @@ namespace LineDrawer.Services.Interfaces
 {
     interface IMathOperationService
     {
-        bool CountDeterminantFromTwoFunctions(double k, CurveFunction curveFucntion1, CurveFunction curveFucntion2)
+        bool CountDeterminantFromTwoFunctions(double k, CurveFunction curveFucntion1, CurveFunction curveFucntion2);
     }
 }
