@@ -7,6 +7,17 @@ namespace LineDrawer.Services
 {
     public class MathOperationService: IMathOperationService
     {
+        public Coefficient GetEquationFromPoints(int p0, int p1, int p2, int p3)
+        {
+            return new Coefficient()
+            {
+                ThirdPower = (-p0 + 3 * p1 - 3 * p2 + p3) / 10,
+                SecondPower = (3 * p0 - 6 * p1 + 3 * p2) / 10,
+                FirstPower = (-3 * p0 + 3 * p1) / 10,
+                NoPower = p0 / 10
+            };
+
+        }
         public bool CountDeterminantFromTwoFunctions(double k, CurveFunction curveFucntion1, CurveFunction curveFucntion2)
         {
             var x1 = curveFucntion1.X;
