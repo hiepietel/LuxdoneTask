@@ -8,9 +8,9 @@ namespace LineDrawer.Model
 {
     public class Coefficient
     {
-        public int ThirdPower { get; set; } // x^3
-        public int SecondPower{ get; set; } //x^2
-        public int FirstPower { get; set; }
-        public int NoPower { get; set; }
+        public double ThirdPower { get; set; } // x^3
+        public double SecondPower{ get; set; } //x^2
+        public double FirstPower { get; set; }
+        public double NoPower { get; set; }
     }
 }
