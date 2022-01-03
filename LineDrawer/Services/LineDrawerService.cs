@@ -1,67 +1,95 @@
-﻿using LineDrawer.Model;
+﻿using LineDrawer.Enums;
+using LineDrawer.Extensions;
+using LineDrawer.Model;
 using LineDrawer.Services.Interfaces;
+using MathNet.Numerics.LinearAlgebra.Double;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LineDrawer.Services
 {
     public class LineDrawerService : ILineDrawerService
     {
+        private readonly IMathOperationService mathOperationService;
 
-        Point firstPoint;
-        Pen pen;
-        public LineDrawerService()
+        List<CurveFunction> curveFunctionList = new List<CurveFunction>();
+
+        BezierPoint bezierPoint = new BezierPoint();
+        Pen pen = new Pen(Color.Black, 3);
+        Pen littlePen = new Pen(Color.Cyan, 1);      
+        OperationState operationState = OperationState.Init;
+        Random random = new Random();
+
+        public LineDrawerService(IMathOperationService _mathOperationService)
         {
-            firstPoint = new Point(-1, -1);
-            pen = new Pen(Color.Black, 5);
+            mathOperationService = _mathOperationService;
         }
+       
 
-        public void DrawLine(Graphics g,int x, int y)
+        public void DrawLine(Graphics g, int x, int y)
         {
-            if (firstPoint.X < 0 && firstPoint.Y < 0)
+            if (operationState == OperationState.Init || operationState == OperationState.Finish)
             {
-                firstPoint = new Point(x, y);
-                return;
+                bezierPoint.FirstPoint = PointExtensions.CreateRescaledPoint(x, y);
+                operationState = OperationState.FirstPointSetted;
             }
             else
             {
-                var secondPoint = new Point(x, y);
+                bezierPoint.SecondPoint = PointExtensions.CreateRescaledPoint(x, y);
 
-                var c0 = new Point()
+                bezierPoint.C0 = PointExtensions.CreateRescaledPoint(bezierPoint.FirstPoint.X, bezierPoint.FirstPoint.Y);
+                bezierPoint.C1 = PointExtensions.CreateRescaledPoint(bezierPoint.SecondPoint.X, bezierPoint.SecondPoint.Y);
+
+                var curveFunction = mathOperationService.CreateCurveFunctionFromBezierPoint(bezierPoint);
+
+                bool isGood = true;
+                while (operationState != OperationState.LineCanBeDrawed)
                 {
-                    X = (firstPoint.X + x) / 3,
-                    Y = (firstPoint.Y + y) / 3,
-                };
-                var c1 = new Point()
+                    foreach (var curveFunctionFromList in curveFunctionList)
+                    {
+                        for (double i = 0; i < 2; i = i += 0.0000001)
+                        {
+                            var det = mathOperationService.CountDeterminantFromTwoCurveFunction(i, curveFunctionFromList, curveFunction);
+                            if ( det < 2)   //it should be equal to zero
+                            {
+                                isGood = false;
+                                break;
+                            }
+                        }
+                        if (isGood == false)
+                            break;
+                        isGood = true;
+                    }
+                    if (isGood == true)
+                    {
+                        operationState = OperationState.LineCanBeDrawed;
+                    }
+                    else
+                    {
+                        bezierPoint.C0.RandomlyMovePoint();
+                        bezierPoint.C1.RandomlyMovePoint();
+
+                        curveFunction = mathOperationService.CreateCurveFunctionFromBezierPoint(bezierPoint);
+
+                        DrawBezierFromBezierModel(g, bezierPoint);
+
+                        isGood = true;
+                    }
+                }
+
+                if (operationState == OperationState.LineCanBeDrawed)
                 {
-                    X = (firstPoint.X + x) * 2 / 3,
-                    Y = (firstPoint.Y + y) * 2 / 3,
-                };
+                    DrawBezierFromBezierModel(g, bezierPoint);
+                    curveFunctionList.Add(curveFunction);
+                }
 
-                g.DrawBezier(pen, firstPoint, c0, c1, secondPoint);
-
-
-                firstPoint = new Point(-1, -1);
+                operationState = OperationState.Finish;
             }
         }
-        private Coefficient GetEquationFromPoints(int p0, int p1, int p2, int p3)
+        private void DrawBezierFromBezierModel(Graphics g, BezierPoint bezierPoint)
         {
-            return new Coefficient()
-            {
-                ThirdPower = -p0 + 3 * p1 + 3 * p2 + p3,
-                SecondPower = 3 * p0 - 6 * p1 + 3 * p2,
-                FirstPower = 3 * p0 + 3 * p1,
-                NoPower = p0
-            };
-
-        }
-        private void isIntersect()
-        {
-
+            g.DrawBezier(littlePen, bezierPoint.FirstPoint, bezierPoint.C0, bezierPoint.C1, bezierPoint.SecondPoint);
         }
     }
 }

@@ -16,15 +16,14 @@ namespace LineDrawer.Services
                 FirstPower = (-3 * p0 + 3 * p1) / 10,
                 NoPower = p0 / 10
             };
-
         }
-        public bool CountDeterminantFromTwoFunctions(double k, CurveFunction curveFucntion1, CurveFunction curveFucntion2)
-        {
-            var x1 = curveFucntion1.X;
-            var x2 = curveFucntion2.X;
-            var y1 = curveFucntion1.Y;
-            var y2 = curveFucntion2.Y;
 
+        public double CountDeterminantFromTwoCurveFunction(double k, CurveFunction firstCurveFunction, CurveFunction secondCurveFunction)
+        {
+            var x1 = firstCurveFunction.X;
+            var x2 = secondCurveFunction.X;
+            var y1 = firstCurveFunction.Y;
+            var y2 = secondCurveFunction.Y;
 
             var m = DenseMatrix.OfArray(new double[,]
             {
@@ -37,27 +36,19 @@ namespace LineDrawer.Services
                 }
             );
 
-            //var det = m.Determinant();
-            var det = Math.Abs(m.Determinant());
-            if (det < 100000)
-            {
-                //return true;
-                if (det < 10000)
-                {
-                    if (det < 1000)
-                    {
-                        if (det < 100)
-                        {
-                            if (det < 25)
-                            {
-                                return true;
-                            }
-                        }
+            return Math.Abs(m.Determinant());
+        }
 
-                    }
-                }
-            }
-            return det < 1;
+        public CurveFunction CreateCurveFunctionFromBezierPoint(BezierPoint bezierPoint)
+        {
+            var xCoefficents = GetEquationFromPoints(bezierPoint.FirstPoint.X, bezierPoint.C0.X, bezierPoint.C1.X, bezierPoint.SecondPoint.X);
+            var yCoefficents = GetEquationFromPoints(bezierPoint.FirstPoint.Y, bezierPoint.C0.Y, bezierPoint.C1.Y, bezierPoint.SecondPoint.Y);
+
+            return new CurveFunction()
+            {
+                X = xCoefficents,
+                Y = yCoefficents
+            };
         }
     }
 }
