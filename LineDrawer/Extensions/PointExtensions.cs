@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
 
 namespace LineDrawer.Extensions
 {
@@ -21,6 +19,22 @@ namespace LineDrawer.Extensions
         public static Point CreateRescaledPoint(int x, int y)
         {
             var point = new Point(x, y);
+            return RescalePoint(point);
+        }
+
+        public static Point RandomlyMovePoint(this Point point)
+        {
+            var random = new Random();
+
+            var x_positive = random.Next(10) % 2 == 0 ? 1 : -1;
+            var y_positive = random.Next(10, 20) % 2 == 0 ? 1 : -1;
+
+            var x_amount = random.Next(2, 8) * 50;
+            var y_amount = random.Next(2, 4) * 50;
+
+            point.X += x_positive * x_amount;
+            point.Y += y_positive * y_amount;
+
             return RescalePoint(point);
         }
 
