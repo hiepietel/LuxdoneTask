@@ -37,10 +37,10 @@ namespace LineDrawer
             this.mainPanel.BackColor = System.Drawing.SystemColors.HighlightText;
             this.mainPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mainPanel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.mainPanel.Location = new System.Drawing.Point(100, 100);
+            this.mainPanel.Location = new System.Drawing.Point(50, 50);
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.mainPanel.Size = new System.Drawing.Size(1064, 481);
+            this.mainPanel.Size = new System.Drawing.Size(1164, 581);
             this.mainPanel.TabIndex = 0;
             this.mainPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             // 
@@ -48,6 +48,7 @@ namespace LineDrawer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(1264, 681);
             this.Controls.Add(this.mainPanel);

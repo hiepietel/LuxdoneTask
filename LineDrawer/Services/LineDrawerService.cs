@@ -2,8 +2,6 @@
 using LineDrawer.Extensions;
 using LineDrawer.Model;
 using LineDrawer.Services.Interfaces;
-using MathNet.Numerics.LinearAlgebra.Double;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -12,21 +10,17 @@ namespace LineDrawer.Services
     public class LineDrawerService : ILineDrawerService
     {
         private readonly IMathOperationService mathOperationService;
-
-        List<CurveFunction> curveFunctionList = new List<CurveFunction>();
-
-        BezierPoint bezierPoint = new BezierPoint();
-        Pen pen = new Pen(Color.Black, 3);
-        Pen littlePen = new Pen(Color.Cyan, 1);      
+        readonly List<CurveFunction> curveFunctionList = new List<CurveFunction>();
+        readonly BezierPoint bezierPoint = new BezierPoint();
+        readonly Pen littlePen = new Pen(Color.Cyan, 1);      
+        readonly Pen pen = new Pen(Color.Black, 3);      
         OperationState operationState = OperationState.Init;
-        Random random = new Random();
 
         public LineDrawerService(IMathOperationService _mathOperationService)
         {
             mathOperationService = _mathOperationService;
         }
        
-
         public void DrawLine(Graphics g, int x, int y)
         {
             if (operationState == OperationState.Init || operationState == OperationState.Finish)
@@ -72,7 +66,7 @@ namespace LineDrawer.Services
 
                         curveFunction = mathOperationService.CreateCurveFunctionFromBezierPoint(bezierPoint);
 
-                        DrawBezierFromBezierModel(g, bezierPoint);
+                        DrawBezierFromBezierModel(g, pen, bezierPoint);
 
                         isGood = true;
                     }
@@ -80,16 +74,16 @@ namespace LineDrawer.Services
 
                 if (operationState == OperationState.LineCanBeDrawed)
                 {
-                    DrawBezierFromBezierModel(g, bezierPoint);
+                    DrawBezierFromBezierModel(g, littlePen, bezierPoint);
                     curveFunctionList.Add(curveFunction);
                 }
 
                 operationState = OperationState.Finish;
             }
         }
-        private void DrawBezierFromBezierModel(Graphics g, BezierPoint bezierPoint)
+        private void DrawBezierFromBezierModel(Graphics g, Pen pen, BezierPoint bezierPoint)
         {
-            g.DrawBezier(littlePen, bezierPoint.FirstPoint, bezierPoint.C0, bezierPoint.C1, bezierPoint.SecondPoint);
+            g.DrawBezier(pen, bezierPoint.FirstPoint, bezierPoint.C0, bezierPoint.C1, bezierPoint.SecondPoint);
         }
     }
 }
