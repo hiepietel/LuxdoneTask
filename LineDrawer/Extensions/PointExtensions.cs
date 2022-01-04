@@ -22,7 +22,7 @@ namespace LineDrawer.Extensions
             return RescalePoint(point);
         }
 
-        public static Point RandomlyMovePoint(this Point point)
+        public static Point RandomlyMoveRescaledPoint(this Point point)
         {
             var random = new Random();
 

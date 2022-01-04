@@ -67,8 +67,8 @@ namespace LineDrawer.Services
                     }
                     else
                     {
-                        bezierPoint.C0.RandomlyMovePoint();
-                        bezierPoint.C1.RandomlyMovePoint();
+                        bezierPoint.C0.RandomlyMoveRescaledPoint();
+                        bezierPoint.C1.RandomlyMoveRescaledPoint();
 
                         curveFunction = mathOperationService.CreateCurveFunctionFromBezierPoint(bezierPoint);
 
