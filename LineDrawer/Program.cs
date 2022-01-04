@@ -35,6 +35,8 @@ namespace LineDrawer
         {
             services.AddScoped<MainForm>();
             services.AddSingleton<ILineDrawerService, LineDrawerService>();
+            services.AddSingleton<IPointDrawerService, PointDrawerService>();
+            services.AddSingleton<IMathOperationService, MathOperationService>();
         }
     }
 }

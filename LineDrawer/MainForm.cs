@@ -15,15 +15,14 @@ namespace LineDrawer
     {
 
         Graphics g;
-        int x =-1;
-        int y = -1;
-        Pen pen;
 
-        private readonly ILineDrawerService _lineDrawService;
+        private readonly ILineDrawerService _lineDrawerService;
+        private readonly IPointDrawerService _pointDrawerService;
 
-        public MainForm(ILineDrawerService lineDrawerService)
+        public MainForm(ILineDrawerService lineDrawerService, IPointDrawerService pointDrawerService)
         {
-            _lineDrawService = lineDrawerService;
+            _lineDrawerService = lineDrawerService;
+            _pointDrawerService = pointDrawerService;
             InitializeComponent();
 
             g = mainPanel.CreateGraphics();
@@ -31,7 +30,9 @@ namespace LineDrawer
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
-            _lineDrawService.DrawLine(g, e.X, e.Y);
+            _pointDrawerService.DrawPoint(g, e.X, e.Y);
+            _lineDrawerService.DrawLine(g, e.X, e.Y);
+                           
         }
     }
 }

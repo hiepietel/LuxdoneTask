@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LineDrawer", "LineDrawer\LineDrawer.csproj", "{B95926E3-24E6-48D0-9CD5-F7D725E00E97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LineDrawer", "LineDrawer\LineDrawer.csproj", "{B95926E3-24E6-48D0-9CD5-F7D725E00E97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{C2565CB0-2102-40FB-90A5-076107DE5F05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B95926E3-24E6-48D0-9CD5-F7D725E00E97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B95926E3-24E6-48D0-9CD5-F7D725E00E97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B95926E3-24E6-48D0-9CD5-F7D725E00E97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2565CB0-2102-40FB-90A5-076107DE5F05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2565CB0-2102-40FB-90A5-076107DE5F05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2565CB0-2102-40FB-90A5-076107DE5F05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2565CB0-2102-40FB-90A5-076107DE5F05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
