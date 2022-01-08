@@ -11,6 +11,7 @@ namespace LineDrawer
 {
     static class Program
     {
+        private readonly static string version = "alpha";
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
