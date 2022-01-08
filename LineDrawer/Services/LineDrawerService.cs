@@ -12,8 +12,7 @@ namespace LineDrawer.Services
     {
         private readonly IMathOperationService mathOperationService;
         readonly BezierPoint bezierPoint = new BezierPoint();
-        readonly Pen littlePen = new Pen(Color.Cyan, 1);
-        readonly Pen pen = new Pen(Color.Red, 3);
+        readonly Pen littlePen = new Pen(Color.Blue, 2);
         readonly Pen morePen = new Pen(Color.Black, 1);
         OperationState operationState = OperationState.Init;
 
@@ -24,7 +23,15 @@ namespace LineDrawer.Services
             mathOperationService = _mathOperationService;
         }
 
-        public void DrawLine(Graphics g, int x, int y)
+        public void CleanLinesFromBoard(Graphics g)
+        {
+            g.Clear(Color.White);
+            board = new List<Tuple<int, int, bool>>();
+            operationState = OperationState.Init;
+
+        }
+
+        public void DrawLine(Graphics g, int x, int y, bool debug = false)
         {
             if (operationState == OperationState.Init || operationState == OperationState.Finish)
             {
@@ -42,7 +49,7 @@ namespace LineDrawer.Services
 
                 bool isGood = true;
                 var rectanglePosition = RectanglePosition.TopLeft;
-                int move = 50;
+                int move = 5;
                 while (operationState != OperationState.LineCanBeDrawed)
                 {
                     for (double i = 0.02; i < 0.98; i += 0.0002)
@@ -69,8 +76,9 @@ namespace LineDrawer.Services
                         bezierPoint.C1 = bezierPoint.C1.MoveRescaledPoint(x_dir, y_dir);
 
                         curveFunction = mathOperationService.CreateCurveFunctionFromBezierPoint(bezierPoint);
-
-                        DrawBezierFromBezierModel(g, morePen, bezierPoint);
+                        
+                        if(debug == true)
+                            DrawBezierFromBezierModel(g, morePen, bezierPoint);
 
                         move += 50;
                         rectanglePosition = NextRectanglePositon(rectanglePosition);

@@ -22,9 +22,15 @@ namespace LineDrawer
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
+            button1.Enabled = false;
             _pointDrawerService.DrawPoint(g, e.X, e.Y);
-            _lineDrawerService.DrawLine(g, e.X, e.Y);
-                           
+            _lineDrawerService.DrawLine(g, e.X, e.Y, checkBox1.Checked);
+            button1.Enabled = true;
+        }
+
+        private void button1_Click(object sender, System.EventArgs e)
+        {
+            _lineDrawerService.CleanLinesFromBoard(g);
         }
     }
 }

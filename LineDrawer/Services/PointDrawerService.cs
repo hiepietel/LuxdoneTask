@@ -9,7 +9,7 @@ namespace LineDrawer.Services
 {
     public class PointDrawerService : IPointDrawerService
     {
-        SolidBrush p = new SolidBrush(Color.Blue);
+        SolidBrush p = new SolidBrush(Color.DarkBlue);
         public PointDrawerService()
         {
 

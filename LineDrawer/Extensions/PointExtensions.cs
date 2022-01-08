@@ -30,7 +30,7 @@ namespace LineDrawer.Extensions
             return point;
         }
 
-        public static Rectangle MakeRectangleFromPoint(this Point point, int width = 20)
+        public static Rectangle MakeRectangleFromPoint(this Point point, int width = 5)
             => new Rectangle(point.X - width / 2, point.Y - width / 2, width, width);
     }
 }

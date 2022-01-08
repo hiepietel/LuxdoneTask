@@ -6,6 +6,6 @@ namespace LineDrawer.Services.Interfaces
     {
         Coefficient GetEquationFromPoints(int p0, int p1, int p2, int p3);
         CurveFunction CreateCurveFunctionFromBezierPoint(BezierPoint bezierPoint);
-        int CountFunctionValueFromT(Coefficient coefficient, double t)
+        int CountFunctionValueFromT(Coefficient coefficient, double t);
     }
 }
