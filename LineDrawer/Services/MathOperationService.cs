@@ -11,33 +11,13 @@ namespace LineDrawer.Services
         {
             return new Coefficient()
             {
-                ThirdPower = (-p0 + 3 * p1 - 3 * p2 + p3) / 10,
-                SecondPower = (3 * p0 - 6 * p1 + 3 * p2) / 10,
-                FirstPower = (-3 * p0 + 3 * p1) / 10,
-                NoPower = p0 / 10
+                ThirdPower = (-p0 + 3 * p1 - 3 * p2 + p3),
+                SecondPower = (3 * p0 - 6 * p1 + 3 * p2) ,
+                FirstPower = (-3 * p0 + 3 * p1) ,
+                NoPower = p0 
             };
         }
 
-        public double CountDeterminantFromTwoCurveFunction(double k, CurveFunction firstCurveFunction, CurveFunction secondCurveFunction)
-        {
-            var x1 = firstCurveFunction.X;
-            var x2 = secondCurveFunction.X;
-            var y1 = firstCurveFunction.Y;
-            var y2 = secondCurveFunction.Y;
-
-            var m = DenseMatrix.OfArray(new double[,]
-            {
-                {x1.ThirdPower - x2.ThirdPower * Math.Pow(k, 3), x1.SecondPower - x2.SecondPower * Math.Pow(k,2), x1.FirstPower - x2.FirstPower * k, x1.NoPower - x2.NoPower, 0, 0 },
-                {0, x1.ThirdPower - x2.ThirdPower * Math.Pow(k, 3), x1.SecondPower - x2.SecondPower * Math.Pow(k,2), x1.FirstPower - x2.FirstPower * k, x1.NoPower - x2.NoPower, 0 },
-                {0, 0, x1.ThirdPower - x2.ThirdPower * Math.Pow(k, 3), x1.SecondPower - x2.SecondPower * Math.Pow(k,2), x1.FirstPower - x2.FirstPower * k, x1.NoPower - x2.NoPower},
-                {y1.ThirdPower - y2.ThirdPower * Math.Pow(k, 3), y1.SecondPower - y2.SecondPower * Math.Pow(k,2), y1.FirstPower - y2.FirstPower * k, y1.NoPower - y2.NoPower, 0, 0 },
-                {0, y1.ThirdPower - y2.ThirdPower * Math.Pow(k, 3), y1.SecondPower - y2.SecondPower * Math.Pow(k,2), y1.FirstPower - y2.FirstPower * k, y1.NoPower - y2.NoPower, 0 },
-                {0, 0, y1.ThirdPower - y2.ThirdPower * Math.Pow(k, 3), y1.SecondPower - y2.SecondPower * Math.Pow(k,2), y1.FirstPower - y2.FirstPower * k, y1.NoPower - y2.NoPower},
-                }
-            );
-
-            return Math.Abs(m.Determinant());
-        }
 
         public CurveFunction CreateCurveFunctionFromBezierPoint(BezierPoint bezierPoint)
         {
@@ -49,6 +29,11 @@ namespace LineDrawer.Services
                 X = xCoefficents,
                 Y = yCoefficents
             };
+        }
+
+        public int CountFunctionValueFromT(Coefficient coefficient, double t)
+        {
+            return (int)Math.Floor(coefficient.ThirdPower * Math.Pow(t, 3) + coefficient.SecondPower * Math.Pow(t, 2) + coefficient.FirstPower * t + coefficient.NoPower);
         }
     }
 }

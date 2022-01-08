@@ -7,10 +7,10 @@ namespace LineDrawer.Extensions
     {
         public static Point RescalePoint(this Point point)
         {
-            int xe = point.X % 50;
+            int xe = point.X % 5;
             point.X -= xe;
 
-            int ye = point.Y % 50;
+            int ye = point.Y % 5;
             point.Y -= ye;
 
             return point;
@@ -22,20 +22,12 @@ namespace LineDrawer.Extensions
             return RescalePoint(point);
         }
 
-        public static Point RandomlyMoveRescaledPoint(this Point point)
+        public static Point MoveRescaledPoint(this Point point, int xDir, int yDir)
         {
-            var random = new Random();
+            point.X += xDir;
+            point.Y += yDir;
 
-            var x_positive = random.Next(10) % 2 == 0 ? 1 : -1;
-            var y_positive = random.Next(10, 20) % 2 == 0 ? 1 : -1;
-
-            var x_amount = random.Next(2, 8) * 50;
-            var y_amount = random.Next(2, 4) * 50;
-
-            point.X += x_positive * x_amount;
-            point.Y += y_positive * y_amount;
-
-            return RescalePoint(point);
+            return point;
         }
 
         public static Rectangle MakeRectangleFromPoint(this Point point, int width = 20)
