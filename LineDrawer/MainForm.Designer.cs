@@ -32,12 +32,15 @@ namespace LineDrawer
             this.mainPanel = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainPanel
             // 
             this.mainPanel.BackColor = System.Drawing.SystemColors.HighlightText;
             this.mainPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.mainPanel.Controls.Add(this.label1);
             this.mainPanel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.mainPanel.Location = new System.Drawing.Point(50, 50);
             this.mainPanel.Name = "mainPanel";
@@ -66,6 +69,17 @@ namespace LineDrawer
             this.checkBox1.Text = "additional info";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(248, -1);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(674, 50);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "select two points on the board and wait";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -78,6 +92,8 @@ namespace LineDrawer
             this.Controls.Add(this.mainPanel);
             this.Name = "MainForm";
             this.Text = "LineDrawer";
+            this.mainPanel.ResumeLayout(false);
+            this.mainPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -88,6 +104,7 @@ namespace LineDrawer
         private System.Windows.Forms.Panel mainPanel;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

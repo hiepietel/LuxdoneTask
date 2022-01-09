@@ -22,6 +22,8 @@ namespace LineDrawer
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
+            if (label1.Visible == true)
+                label1.Visible = false;
             button1.Enabled = false;
             _pointDrawerService.DrawPoint(g, e.X, e.Y);
             _lineDrawerService.DrawLine(g, e.X, e.Y, checkBox1.Checked);
@@ -31,6 +33,8 @@ namespace LineDrawer
         private void button1_Click(object sender, System.EventArgs e)
         {
             _lineDrawerService.CleanLinesFromBoard(g);
+            if (label1.Visible == false)
+                label1.Visible = true;
         }
     }
 }
