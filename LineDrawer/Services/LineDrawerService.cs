@@ -49,14 +49,15 @@ namespace LineDrawer.Services
 
                 bool isGood = true;
                 var rectanglePosition = RectanglePosition.TopLeft;
-                int move = 5;
+                int move = 10;
                 while (operationState != OperationState.LineCanBeDrawed)
                 {
                     for (double i = 0.02; i < 0.98; i += 0.0002)
                     {
                         int xp = mathOperationService.CountFunctionValueFromT(curveFunction.X, i);
                         int yp = mathOperationService.CountFunctionValueFromT(curveFunction.Y, i);
-                        if (board.Exists(x => x.Item1 > (xp - 1) && x.Item1 < (xp + 1) && x.Item2 > (yp - 1) && x.Item2 < (yp + 1) && x.Item3 == true))
+                        int border = 3;
+                        if (board.Exists(x => x.Item1 > (xp - border) && x.Item1 < (xp + border) && x.Item2 > (yp - border) && x.Item2 < (yp + border) && x.Item3 == true))
                         {
                             isGood = false;
                             break;
@@ -76,12 +77,13 @@ namespace LineDrawer.Services
                         bezierPoint.C1 = bezierPoint.C1.MoveRescaledPoint(x_dir, y_dir);
 
                         curveFunction = mathOperationService.CreateCurveFunctionFromBezierPoint(bezierPoint);
-                        
-                        if(debug == true)
+
+                        if (debug == true)
                             DrawBezierFromBezierModel(g, morePen, bezierPoint);
 
-                        move += 50;
+
                         rectanglePosition = NextRectanglePositon(rectanglePosition);
+                        move += 10;
                         isGood = true;
                     }
                 }

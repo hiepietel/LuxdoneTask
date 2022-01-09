@@ -1,6 +1,5 @@
 ﻿using LineDrawer.Model;
 using LineDrawer.Services.Interfaces;
-using MathNet.Numerics.LinearAlgebra.Double;
 using System;
 
 namespace LineDrawer.Services
